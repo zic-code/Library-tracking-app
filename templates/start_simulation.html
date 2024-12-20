@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Simulation{% endblock %}
+
+{% block content %}
+
+<body>
+  <h1>Start simulation</h1>
+  <p>Investment Duration: {{ start_year }} - {{ end_year }}</p>
+  <p>Manage your assets with two investment opportunities per year</p>
+  <a href="{{ url_for('investment_detail') }}">Move to the Invest Page</a>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <!-- Stock Information -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>{{ stock.company_name }} ({{ stock.symbol }})</h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Sector:</strong> {{ stock.sector }}</p>
+          <p><strong>Current Price:</strong> ${{ current_price }}</p>
+          <p><strong>Available Cash:</strong> ${{ "%.2f"|format(budget) }}</p>
+          <p><strong>Maximum Purchasable:</strong> {{ max_quantity }} shares</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Current Year:</strong> {{ current_year }}</p>
+          <p><strong>Current Round:</strong> {{ current_round }}/5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trading -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h4>Trade</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('buy_or_sell') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group mb-3">
+          {{ form.quantity.label }}
+          {{ form.quantity(class="form-control", placeholder="Enter quantity (max: " + max_quantity|string + " shares)")
+          }}
+        </div>
+
+        <div class="mb-3">
+          <button type="submit" name="action" value="buy" class="btn btn-primary">
+            <i class="fas fa-shopping-cart"></i> Buy
+          </button>
+          <button type="submit" name="action" value="sell" class="btn btn-danger">
+            <i class="fas fa-money-bill-wave"></i> Sell
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <a href="{{ url_for('investment_detail') }}" class="btn btn-secondary">
+    <i class="fas fa-arrow-left"></i> Back to Investment Status
+  </a>
+</div>
+
+<style>
+  .card {
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    margin-right: 10px;
+  }
+</style>
+{% endblock %}

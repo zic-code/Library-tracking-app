@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<head>
+  <meta charset="UTF-8">
+  <title>Investment simulator</title>
+</head>
+
+<body>
+  <h1>Welcome to the Invest simulator!</h1>
+  <p>Through the simulator grow your virtual Asset</p>
+  <a href="{{ url_for('start_simulation') }}">Start Simulation</a>
+</body>
+</form>
+{% endblock %}

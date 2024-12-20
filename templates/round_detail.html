@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Round_start{% endblock %}
+
+{% block content %}
+<h1>Invest management</h1>
+<p>current Year: {{ current_year }},Current Asset: {{current_budget}} ,Round: {{ current_round }}</p>
+
+<form method="post" action="{{ url_for('buy_or_sell') }}">
+  {{ form.hidden_tag() }}
+
+  <div>
+    {{ form.action.label }}<br>
+    {{ form.action }}susu
+  </div>
+
+  <div>
+    {{ form.stock.label }}<br>
+    {{ form.stock }}
+  </div>
+
+  <div>
+    {{ form.amount.label }}<br>
+    {{ form.amount }}
+  </div>
+
+  <div>
+    {{ form.submit }}
+  </div>
+</form>
+
+<a href="{{ url_for('view_investment_history') }}">Investment_history</a>
+
+{% endblock %}

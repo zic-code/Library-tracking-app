@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Investment Detail{% endblock %}
+
+{% block content %}
+<h1>Investment Management</h1>
+<div class="asset-summary">
+  <p>Start Year: {{ current_year - current_round + 1 }}</p>
+  <p>Current Year: {{ current_year }} (Round {{ current_round }}/5)</p>
+  <p>Available Cash: {{ current_budget }}</p>
+  <p>Stock Value: {{ total_stock_value }}</p>
+  <p>Total Assets: {{ total_assets }}</p>
+</div>
+
+<div class="action-buttons">
+  <a href="{{ url_for('stocks') }}" class="btn btn-primary">Explore Stocks</a>
+  {% if current_round == 5 %}
+  <form action="{{ url_for('finish_game') }}" method="post" style="display: inline;">
+    <button type="submit" class="btn btn-danger">End Game</button>
+  </form>
+  {% else %}
+  <form action="{{ url_for('next_round') }}" method="post" style="display: inline;">
+    <button type="submit" class="btn btn-success">Next Round</button>
+  </form>
+  {% endif %}
+</div>
+
+<h2>Current Stock Holdings</h2>
+{% if stock_holdings %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Stock Code</th>
+      <th>Company Name</th>
+      <th>Quantity</th>
+      <th>Current Price</th>
+      <th>Total Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for symbol, holding in stock_holdings.items() %}
+    <tr>
+      <td>{{ symbol }}</td>
+      <td>{{ holding.company_name }}</td>
+      <td>{{ holding.quantity }}</td>
+      <td>{{ holding.formatted_price }}</td>
+      <td>{{ holding.formatted_total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">
+  No stocks currently held.
+</div>
+{% endif %}
+{% endblock %}

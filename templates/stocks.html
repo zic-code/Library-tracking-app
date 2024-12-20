@@ -1,0 +1,29 @@
+<!-- stocks.html -->
+{% extends "base.html" %}
+
+{% block title %}Stocks{% endblock %}
+
+{% block content %}
+<h1>Stocks</h1>
+
+<!-- Sector 필터 -->
+<form method="POST" action="{{ url_for('stocks') }}">
+  {{ form.hidden_tag() }}
+  <div>
+    {{ form.sector.label }}: {{ form.sector() }}
+  </div>
+  <div>
+    {{ form.submit(class="btn btn-primary") }}
+  </div>
+</form>
+
+
+<!-- 주식 목록 -->
+<ul>
+  {% for stock in stocks %}
+  <li><a href="{{ url_for('stock_detail', symbol=stock.symbol) }}">{{ stock.symbol }} - {{ stock.company_name }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

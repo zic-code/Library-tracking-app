@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Investment History{% endblock %}
+
+{% block content %}
+<h1>Investment History</h1>
+
+<div class="mb-4">
+  <a href="{{ url_for('invest') }}" class="btn btn-primary">Start New Investment</a>
+</div>
+
+{% if investments %}
+<div class="investment-history">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Start Year</th>
+        <th>End Date</th>
+        <th>Final Assets</th>
+        <th>Return Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for investment in investments %}
+      <tr>
+        <td>{{ investment.current_year }}</td>
+        <td>{{ investment.end_date.year }}</td>
+        <td>${{ "{:,.2f}".format(investment.total_assets) }}</td>
+        <td>{{ "%.2f"|format(investment.profit_rate) }}%</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p>No completed investment records found.</p>
+{% endif %}
+{% endblock %}

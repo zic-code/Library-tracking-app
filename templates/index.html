@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1 class="display-4">Welcome to My Stock App!</h1>
+  <p class="lead">Track your favorite stocks and manage your portfolio.</p>
+  <hr class="my-4">
+
+  {% if current_user.is_authenticated %}
+  <!--when status is logged in-->
+  <div class="btn-group" role="group">
+    <a href="{{ url_for('start_simulation') }}" class="btn btn-primary">Start Simulation</a>
+    <a href="{{ url_for('view_investment_history') }}" class="btn btn-info">Investment History</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+  </div>
+  {% else %}
+  <p>Get started by creating an account or logging in.</p>
+  <a class="btn btn-primary btn-lg" href="/register" role="button">Sign Up</a>
+  <a class="btn btn-secondary btn-lg" href="/login" role="button">Login</a>
+  {% endif %}
+</div>
+{% endblock %}
